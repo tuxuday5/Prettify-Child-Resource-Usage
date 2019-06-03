@@ -1,0 +1,22 @@
+all: p_stat
+
+CC=gcc
+CFLAGS=-Wall -c -I. -ggdb 
+
+p_stat.o: p_stat.c p_stat_print.h
+	$(CC) $(CFLAGS) p_stat.c
+
+p_stat_print.o: p_stat_print.c p_stat_print.h
+	$(CC) $(CFLAGS) p_stat_print.c
+
+p_stat: p_stat.o  p_stat_print.o 
+	$(CC) -o p_stat p_stat.o p_stat_print.o -lm
+
+parse_stat.o: parse_stat.c
+	$(CC) $(CFLAGS) parse_stat.c
+
+p_stat_emulate.o: p_stat_emulate.c p_stat_emulate.h
+	$(CC) $(CFLAGS) p_stat_emulate.c
+
+p_stat_emulate: p_stat_emulate.o  parse_stat.o
+	$(CC) -o p_stat_emulate p_stat_emulate.o parse_stat.o -lm
