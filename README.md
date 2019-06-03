@@ -8,7 +8,7 @@ The [/usr/bin/time](http://www.tutorialspoint.com/unix_commands/time.htm) comman
 But it has its limitation. For example the default resource usage provided by time is
 
 ```
-uday@linus:~$ /usr/bin/time ls
+$ /usr/bin/time ls
 ........
 0.00user 0.00system 0:00.00elapsed 0%CPU (0avgtext+0avgdata 2488maxresident)k
 0inputs+0outputs (0major+114minor)pagefaults 0swaps
@@ -103,7 +103,7 @@ $ echo $TIME
 \n{#}\n||User||System||Elapse||CPU||(Data||Max)K||Ip+Op||Kern-Swtch||Vol-Swtch||\n{#}\n||%U||%S||%E||%P||(%D||%M)K||%I+%O||%c||%w||\n{#}
 
 
- ./p_stat_emulate /usr/bin/time ../amicable >/dev/null
+$./p_stat_emulate /usr/bin/time ../amicable >/dev/null
 +-------------+----------------+------------------+----------+-------------+----------------+-------------+--------------------------+
 |User         |System          |Elapse            |CPU       |(Data        |Max)K           |Ip+Op        |Kern-Swtch                |
 +-------------+----------------+------------------+----------+-------------+----------------+-------------+--------------------------+
