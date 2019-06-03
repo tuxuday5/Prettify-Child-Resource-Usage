@@ -12,10 +12,10 @@ p_stat_print.o: p_stat_print.c p_stat_print.h
 p_stat: p_stat.o  p_stat_print.o 
 	$(CC) -o p_stat p_stat.o p_stat_print.o -lm
 
-parse_stat.o: parse_stat.c
+parse_stat.o: parse_stat.c parse_stat.h
 	$(CC) $(CFLAGS) parse_stat.c
 
-p_stat_emulate.o: p_stat_emulate.c p_stat_emulate.h
+p_stat_emulate.o: p_stat_emulate.c
 	$(CC) $(CFLAGS) p_stat_emulate.c
 
 p_stat_emulate: p_stat_emulate.o  parse_stat.o
