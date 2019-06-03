@@ -45,11 +45,10 @@ Since it isn't readable, wanted to do something about it - also had time to kill
 ```
   Of these some of the fields aren't implemented in Linux. In this implementation the tool outputs all the fields, that are implemented, along with these it also calculates CPU usage in percentage. This is achieved lby 
 
-*
-    End Time - Start Time = (1) # this is the clock time between child invocation and waiting on child. Obtained using gettimeofday()
-    rusage.ru_utime + rusage.ru_stime = (2)
-    (2)/(1) * 100 = (3)
-*
+- End Time - Start Time = (1) # this is the clock time between child invocation and waiting on child. Obtained using gettimeofday()
+- rusage.ru_utime + rusage.ru_stime = (2)
+- (2)/(1) * 100 = (3)
+
 
 Sample output looks thus.
 
@@ -62,7 +61,7 @@ $ ./p_stat ../amicable >/dev/null
 +--------------+-----------+--------------+------+--------+---------------+---------------+--------+---------+-----------+--------------+
 
 ```
-**The program makes use of the COLUMNS  environment variable, otherwise it defaults to 80 columns. Ensure COLUMNS is exported to child program.**
+*The program makes use of the COLUMNS  environment variable, otherwise it defaults to 80 columns. Ensure COLUMNS is exported to child program.*
 
 Building p_stat
 ```
@@ -76,10 +75,10 @@ Building p_stat
 
 This uses /usr/bin/time command and its output. Since the tool has to parse time's output, the output needs to be in specific format. time command can take **-f FORMAT** option or use **TIME environment variable**. I have used TIME variable here.
 
-*
-Block separator is {#}
-Field separator is ||
-*
+
+- Block separator is {#}
+- Field separator is ||
+
 
 This is my sample TIME variable
 
@@ -88,7 +87,7 @@ $ echo $TIME
 \n{#}\n||User||System||Elapse||CPU||(Data||Max)K||Ip+Op||Kern-Swtch||Vol-Swtch||\n{#}\n||%U||%S||%E||%P||(%D||%M)K||%I+%O||%c||%w||\n{#}
 ```
 
-As you can see the header starts with Block separator, ends with block separator. And the value row too ends with block separator. The individual column heders & values are separated by field separator. If the variable isn't configured as stated above, the program will fail.
+As you can see the header starts with Block separator, ends with block separator. And the value row too ends with block separator. The individual column heders & values are separated by field separator.** If the variable isn't configured as stated above, the program will fail.**
 
 Building p_stat_emulate
 ```
