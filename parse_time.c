@@ -17,6 +17,7 @@ int Max(int x,int y) {
 
 int Min(int x,int y) { 
   return x < y ? x : y;
+}
 
 void DumpSoFarStatsBuffer(struct StatsBuffer *s) {
   fprintf(OUT_STREAM,"%s",s->buffer);
