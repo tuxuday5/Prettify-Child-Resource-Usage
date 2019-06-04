@@ -1,22 +1,23 @@
-all: p_stat
+all: child_ru child_ru_time
 
 CC=gcc
 CFLAGS=-Wall -c -I. -ggdb 
+LIBS=-lm
 
-p_stat.o: p_stat.c p_stat_print.h
-	$(CC) $(CFLAGS) p_stat.c
+child_ru.o: child_ru.c child_ru_print.h
+	$(CC) $(CFLAGS) child_ru.c
 
-p_stat_print.o: p_stat_print.c p_stat_print.h
-	$(CC) $(CFLAGS) p_stat_print.c
+child_ru_print.o: child_ru_print.c child_ru_print.h
+	$(CC) $(CFLAGS) child_ru_print.c
 
-p_stat: p_stat.o  p_stat_print.o 
-	$(CC) -o p_stat p_stat.o p_stat_print.o -lm
+child_ru: child_ru.o  child_ru_print.o 
+	$(CC) -o child_ru child_ru.o child_ru_print.o $(LIBS)
 
-parse_stat.o: parse_stat.c parse_stat.h
-	$(CC) $(CFLAGS) parse_stat.c
+parse_time.o: parse_time.c parse_time.h
+	$(CC) $(CFLAGS) parse_time.c
 
-p_stat_emulate.o: p_stat_emulate.c
-	$(CC) $(CFLAGS) p_stat_emulate.c
+child_ru_time.o: child_ru_time.c
+	$(CC) $(CFLAGS) child_ru_time.c
 
-p_stat_emulate: p_stat_emulate.o  parse_stat.o
-	$(CC) -o p_stat_emulate p_stat_emulate.o parse_stat.o -lm
+child_ru_time: child_ru_time.o  parse_time.o
+	$(CC) -o child_ru_time child_ru_time.o parse_time.o $(LIBS)
