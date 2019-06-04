@@ -14,7 +14,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 
-#include "p_stat_print.h"
+#include "child_ru_print.h"
 
 void printArgs(char **argv,char **env) {
   for(int i=0;argv[i];i++)

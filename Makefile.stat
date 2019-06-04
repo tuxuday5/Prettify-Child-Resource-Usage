@@ -21,3 +21,6 @@ child_ru_time.o: child_ru_time.c
 
 child_ru_time: child_ru_time.o  parse_time.o
 	$(CC) -o child_ru_time child_ru_time.o parse_time.o $(LIBS)
+
+clean:
+	rm -f child_ru.o child_ru_print.o child_ru parse_time.o child_ru_time.o child_ru_time

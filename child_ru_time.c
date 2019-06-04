@@ -12,7 +12,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include "parse_stat.h"
+#include "parse_time.h"
 #define DEFAULT_WIDTH 80
 
 void printArgs(char **argv,char **env) {

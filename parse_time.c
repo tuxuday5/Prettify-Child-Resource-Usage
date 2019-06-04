@@ -4,7 +4,7 @@
 #include<string.h>
 #include<errno.h>
 #include<math.h>
-#include "parse_stat.h"
+#include "parse_time.h"
 
 void errExit(const char* s) {
   perror(s);
