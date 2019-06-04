@@ -15,6 +15,10 @@ int Max(int x,int y) {
   return x >= y ? x : y;
 }
 
+int Min(int x,int y) { 
+  return x < y ? x : y;
+}
+
 void DumpSoFarStatsBuffer(struct StatsBuffer *s) {
   fprintf(OUT_STREAM,"%s",s->buffer);
 }
@@ -83,10 +87,14 @@ void PrintOutputSepLine( struct FieldBuffer **b,char ch,char sep) {
 }
 
 void PrintBufferToLen(char *b,short int len) {
-  fprintf(OUT_STREAM,"%s",b);
+  short int l=Min(len,strlen(b));
+  short int i;
 
-  if(strlen(b) < len) {
-    for(short int i=len-strlen(b);i;i--)
+  for(i=0;i<l;i++)
+    fprintf(OUT_STREAM,"%c",b[i]);
+
+  if(len > l) {
+    for(i=len-l;i;i--)
       fprintf(OUT_STREAM," ");
   }
 }

@@ -58,6 +58,7 @@ struct FieldBuffer {
 };
 
 int Max(int,int);
+int Min(int,int);
 void DumpSoFarStatsBuffer(struct StatsBuffer *);
 void DumpData(char);
 void ResetStatsBufferSepValues(struct StatsBuffer *);
