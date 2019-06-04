@@ -19,7 +19,7 @@ Since it isn't readable, wanted to do something about it - also had time to kill
 - One is developing a program similar to /usr/bin/time. Only that here i have better control over the output format. 
 - Two is capturing the output of /usr/bin/time & presenting in a pretty format.
 
-### 1. Implementing a program similar to /usr/bin/time, p_stat.c
+### 1. Implementing a program similar to /usr/bin/time, child_ru.c
 
   This was done using the [getrusage()](http://man7.org/linux/man-pages/man2/getrusage.2.html) system call in Linux. Man page of getrusage() provides following fields.
 
@@ -53,7 +53,7 @@ Since it isn't readable, wanted to do something about it - also had time to kill
 Sample output looks thus.
 
 ```
-$ ./p_stat ../amicable >/dev/null
+$ ./child_ru ../amicable >/dev/null
 +--------------+-----------+--------------+------+--------+---------------+---------------+--------+---------+-----------+--------------+
 |Usr CPU       |Sys CPU    |Elap Time     |CPU % |RSS Max |Soft PgFaults  |Hard PgFaults  |Read FS |Write FS |Vol Switch |InVol Switch  |
 +--------------+-----------+--------------+------+--------+---------------+---------------+--------+---------+-----------+--------------+
@@ -63,15 +63,15 @@ $ ./p_stat ../amicable >/dev/null
 ```
 *The program makes use of the COLUMNS  environment variable, otherwise it defaults to 80 columns. Ensure COLUMNS is exported to child program.*
 
-Building p_stat
+Building child_ru
 ```
-  $ make -f Makefile.stat p_stat
-  gcc -Wall -c -I. -ggdb  p_stat.c
-  gcc -Wall -c -I. -ggdb  p_stat_print.c
-  gcc -o p_stat p_stat.o p_stat_print.o -lm
+  $ make -f Makefile.stat child_ru
+  gcc -Wall -c -I. -ggdb  child_ru.c
+  gcc -Wall -c -I. -ggdb  child_ru_print.c
+  gcc -o child_ru child_ru.o child_ru_print.o -lm
 ```
 
-### 2. Capturing the output of /usr/bin/time , p_stat_emulate.c
+### 2. Capturing the output of /usr/bin/time , child_ru_time.c
 
 This uses /usr/bin/time command and its output. Since the tool has to parse time's output, the output needs to be in specific format. time command can take **-f FORMAT** option or use **TIME environment variable**. I have used TIME variable here.
 
@@ -89,21 +89,21 @@ $ echo $TIME
 
 As you can see the header starts with Block separator, ends with block separator. And the value row too ends with block separator. The individual column heders & values are separated by field separator.** If the variable isn't configured as stated above, the program will fail.**
 
-Building p_stat_emulate
+Building child_ru_time
 ```
-$ make -f Makefile.stat p_stat_emulate
-gcc -Wall -c -I. -ggdb  p_stat_emulate.c
-gcc -Wall -c -I. -ggdb  parse_stat.c
-gcc -o p_stat_emulate p_stat_emulate.o parse_stat.o -lm
+$ make -f Makefile.stat child_ru_time
+gcc -Wall -c -I. -ggdb  child_ru_time.c
+gcc -Wall -c -I. -ggdb  parse_time.c
+gcc -o child_ru_time child_ru_time.o parse_time.o -lm
 ```
 
-Running p_stat_emulate
+Running child_ru_time
 ```
 $ echo $TIME
 \n{#}\n||User||System||Elapse||CPU||(Data||Max)K||Ip+Op||Kern-Swtch||Vol-Swtch||\n{#}\n||%U||%S||%E||%P||(%D||%M)K||%I+%O||%c||%w||\n{#}
 
 
-$./p_stat_emulate /usr/bin/time ../amicable >/dev/null
+$./child_ru_time /usr/bin/time ../amicable >/dev/null
 +-------------+----------------+------------------+----------+-------------+----------------+-------------+--------------------------+
 |User         |System          |Elapse            |CPU       |(Data        |Max)K           |Ip+Op        |Kern-Swtch                |
 +-------------+----------------+------------------+----------+-------------+----------------+-------------+--------------------------+

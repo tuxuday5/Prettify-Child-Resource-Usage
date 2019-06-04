@@ -5,7 +5,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 
-#include "p_stat_print.h"
+#include "child_ru_print.h"
 
 
 void errExit(const char* s) {
